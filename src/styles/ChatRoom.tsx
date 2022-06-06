@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Flex } from '../styles/Flex';
+import { Flex } from './Flex';
 
 export const ChatRoom = styled(Flex)`
   background-image: url(https://www.jornaldeleiria.pt/uploads/h/o/m/romeu-paz-xgeeks-principal-leiria-rg-2020-1-770x470-homt.jpg);

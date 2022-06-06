@@ -1,37 +1,23 @@
 import { useEffect, useRef } from 'react';
-import styled from 'styled-components';
 import { Message } from '../App';
+import useRandUsername from '../hooks/useRandUsername';
+import { Container, Sender } from '../styles/MessageList';
 
-const Container = styled.div`
-  border: 1px solid lightgrey;
-  background-color: rgba(255, 255, 255, 0.5);
-  border-radius: 10px;
-  flex: 5;
-  padding: 20px;
-  overflow-y: auto;
-`;
+type Props = {
+  msgs?: Message[];
+};
 
-const Sender = styled.span`
-  color: red;
-  font-size: 18px;
-  font-weight: 600;
-  margin-right: 10px;
-`;
-
-const MessageItem = ({ msg }: { msg: Message }) => {
+const MessageItem = ({ msg, ownUser }: { msg: Message; ownUser: boolean }) => {
   return (
-    <p>
+    <p style={{ textAlign: ownUser ? 'right' : 'left' }}>
       <Sender>{msg.from}:</Sender>
       {msg.text}
     </p>
   );
 };
 
-type Props = {
-  msgs?: Message[];
-};
-
-export const MessageList = ({ msgs }: Props) => {
+export const MessageList = ({ msgs = [] }: Props) => {
+  const username = useRandUsername();
   const chatRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -44,8 +30,8 @@ export const MessageList = ({ msgs }: Props) => {
 
   return (
     <Container ref={chatRef}>
-      {msgs?.map((msg, index) => (
-        <MessageItem key={msg.id + index} msg={msg} />
+      {msgs.map((msg, index) => (
+        <MessageItem key={msg.id + index} msg={msg} ownUser={username === msg.from} />
       ))}
     </Container>
   );

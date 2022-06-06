@@ -1,37 +1,13 @@
-import './App.css';
-import { gql, useMutation, useQuery, useSubscription } from '@apollo/client';
-import { ChatRoom } from './components/ChatRoom';
+import { useMutation, useQuery, useSubscription } from '@apollo/client';
+import { ChatRoom } from './styles/ChatRoom';
 import { Header } from './components/Header';
 import { Background } from './styles/Background';
 import { MessageList } from './components/MessageList';
 import { SenderView } from './components/SenderView';
 import useRandUsername from './hooks/useRandUsername';
-
-const GET_MESSAGES = gql`
-  query {
-    messages {
-      id
-      from
-      text
-    }
-  }
-`;
-
-const SUBSCRIBE = gql`
-  subscription NewUpdate($username: ID!) {
-    onNewMessage(username: $username) {
-      id
-      from
-      text
-    }
-  }
-`;
-
-const SEND_MSG = gql`
-  mutation SendMessage($input: NewMessage!) {
-    sendMessage(input: $input)
-  }
-`;
+import { GET_MESSAGES } from './graphql/queries/messages';
+import { SEND_MSG } from './graphql/mutations/messages';
+import { SUBSCRIBE } from './graphql/subscriptions/messages';
 
 export type Message = {
   id: string;
