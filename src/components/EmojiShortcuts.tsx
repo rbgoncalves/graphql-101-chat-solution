@@ -5,6 +5,8 @@ import { Flex } from '../styles/Flex';
 const Container = styled(Flex)`
   align-items: center;
   justify-content: space-between;
+  margin-top: 15px;
+  margin-bottom: 5px;
 `;
 
 const EmojiBtn = styled.button`
@@ -15,13 +17,19 @@ const EmojiBtn = styled.button`
   cursor: pointer;
 `;
 
-//type Props = {};
+type Props = {
+  onClick: (text: string) => () => void;
+};
 
-export const EmojiShortcuts = () => {
+export const EmojiShortcuts = ({ onClick }: Props) => {
   return (
     <Container>
       {EMOJIS.map((emoji) => {
-        return <EmojiBtn onClick={(e) => console.log('EMoji clicked', e)}>{emoji}</EmojiBtn>;
+        return (
+          <EmojiBtn key={emoji} onClick={onClick(emoji)}>
+            {emoji}
+          </EmojiBtn>
+        );
       })}
     </Container>
   );

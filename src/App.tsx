@@ -1,9 +1,11 @@
 import './App.css';
-import { gql, useQuery, useSubscription } from '@apollo/client';
+import { gql, useMutation, useQuery, useSubscription } from '@apollo/client';
 import { ChatRoom } from './components/ChatRoom';
 import { Header } from './components/Header';
 import { Background } from './styles/Background';
 import { useState } from 'react';
+import { MessageList } from './components/MessageList';
+import { SenderView } from './components/SenderView';
 
 const GET_MESSAGES = gql`
   query {
@@ -25,7 +27,13 @@ const SUBSCRIBE = gql`
   }
 `;
 
-type Message = {
+const SEND_MSG = gql`
+  mutation SendMessage($input: NewMessage!) {
+    sendMessage(input: $input)
+  }
+`;
+
+export type Message = {
   id: string;
   from: string;
   text: string;
@@ -41,23 +49,37 @@ const getUsername = () => {
 };
 
 function App() {
-  const [username] = useState<string | undefined>(getUsername());
+  const [username] = useState<string>('test');
 
   const { loading, error, data } = useQuery<{ messages: Message[] }>(GET_MESSAGES);
+  const [sendMessageMutation] = useMutation(SEND_MSG);
 
-  const {
-    data: sdata,
-    error: serror,
-    loading: sloading
-  } = useSubscription(SUBSCRIBE, {
-    onSubscriptionData: (d) => {
-      console.log('subs: ', d);
+  useSubscription(SUBSCRIBE, {
+    onSubscriptionData: ({ client: { cache }, subscriptionData }) => {
+      const incomingMsg = {
+        ...subscriptionData.data.onNewMessage,
+        __typename: 'ChatMessage'
+      };
+
+      cache.modify({
+        fields: {
+          messages(oldMsgs = []) {
+            return [...oldMsgs, incomingMsg];
+          }
+        }
+      });
     },
     variables: { username: username },
     skip: !username
   });
 
-  console.log({ sdata, serror, sloading });
+  const sendMessage = (text: string) => {
+    sendMessageMutation({
+      variables: {
+        input: { from: username, text }
+      }
+    });
+  };
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
@@ -65,7 +87,10 @@ function App() {
   return (
     <Background>
       <Header />
-      <ChatRoom />
+      <ChatRoom>
+        <MessageList msgs={data?.messages} />
+        <SenderView send={sendMessage} />
+      </ChatRoom>
     </Background>
   );
 }
