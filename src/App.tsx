@@ -3,9 +3,9 @@ import { gql, useMutation, useQuery, useSubscription } from '@apollo/client';
 import { ChatRoom } from './components/ChatRoom';
 import { Header } from './components/Header';
 import { Background } from './styles/Background';
-import { useState } from 'react';
 import { MessageList } from './components/MessageList';
 import { SenderView } from './components/SenderView';
+import useRandUsername from './hooks/useRandUsername';
 
 const GET_MESSAGES = gql`
   query {
@@ -39,17 +39,9 @@ export type Message = {
   text: string;
 };
 
-const getUsername = () => {
-  let result = null;
-  while (!result) {
-    result = prompt('Insert you username here:');
-    if (!result) alert('username is mandatory!');
-  }
-  return result;
-};
-
 function App() {
-  const [username] = useState<string>('test');
+  // This simplifies the auth complexity out of the demo
+  const username = useRandUsername();
 
   const { loading, error, data } = useQuery<{ messages: Message[] }>(GET_MESSAGES);
   const [sendMessageMutation] = useMutation(SEND_MSG);
