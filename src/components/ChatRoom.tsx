@@ -1,6 +1,6 @@
-import styled from "styled-components";
-import { Flex } from "../styles/Flex";
-import { SenderView } from "./SenderView";
+import styled from 'styled-components';
+import { Flex } from '../styles/Flex';
+import { SenderView } from './SenderView';
 
 const Container = styled(Flex)`
   background-image: url(https://www.jornaldeleiria.pt/uploads/h/o/m/romeu-paz-xgeeks-principal-leiria-rg-2020-1-770x470-homt.jpg);
@@ -17,7 +17,7 @@ const Container = styled(Flex)`
 
 const TranslucidView = styled.div`
   border: 1px solid lightgrey;
-  background-color: rgba(255,255,255,0.4);
+  background-color: rgba(255, 255, 255, 0.4);
   border-radius: 10px;
 `;
 
@@ -31,6 +31,5 @@ export const ChatRoom = () => {
       <MessageList></MessageList>
       <SenderView></SenderView>
     </Container>
-    
-  )
-}
+  );
+};

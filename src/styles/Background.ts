@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Background = styled.div`
   background: linear-gradient(0.3turn, #43caff, #5153e5);
@@ -7,4 +7,3 @@ export const Background = styled.div`
   justify-content: center;
   align-items: center;
 `;
-

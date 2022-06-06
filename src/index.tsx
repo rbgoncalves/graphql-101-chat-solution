@@ -4,13 +4,9 @@ import App from './App';
 import { ApolloProvider } from '@apollo/client';
 import { apolloClient } from './services/configureClient';
 
-
-
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
-);
+const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
-    <ApolloProvider client={apolloClient}>
-      <App />
-    </ApolloProvider>
+  <ApolloProvider client={apolloClient}>
+    <App />
+  </ApolloProvider>
 );

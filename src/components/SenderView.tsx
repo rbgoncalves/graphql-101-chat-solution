@@ -1,6 +1,6 @@
-import styled from "styled-components";
-import { Flex } from "../styles/Flex";
-import { EmojiShortcuts } from "./EmojiShortcuts";
+import styled from 'styled-components';
+import { Flex } from '../styles/Flex';
+import { EmojiShortcuts } from './EmojiShortcuts';
 
 const Container = styled.div`
   flex: 1;
@@ -14,7 +14,7 @@ const Input = styled.textarea`
   padding: 12px;
   border: none;
   border: 1px solid lightgrey;
-  background-color: rgba(255,255,255,0.4);
+  background-color: rgba(255, 255, 255, 0.4);
   border-radius: 10px;
   &:focus {
     outline: none;
@@ -27,7 +27,7 @@ const SendBtn = styled.button`
   color: white;
   font-size: 20px;
   font-weight: 700;
-  background-color: rgba(30,30,30,0.4);
+  background-color: rgba(30, 30, 30, 0.4);
   border-radius: 10px;
   max-width: 60px;
 `;
@@ -36,15 +36,14 @@ const InputContainer = styled(Flex)`
   flex-direction: row;
 `;
 
-
 export const SenderView = () => {
   return (
     <Container>
       <EmojiShortcuts />
       <InputContainer>
-        <Input/>
+        <Input />
         <SendBtn>Send 📩</SendBtn>
       </InputContainer>
     </Container>
-  )
-}
+  );
+};

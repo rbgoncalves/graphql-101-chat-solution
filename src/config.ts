@@ -1,5 +1,19 @@
-export const EMOJIS = ['🙂', '😀', '😉', '😲', '🤪', '😎', '🤬',  '😭', '🤮', '😍','🥶' ,'👋', '🎱', '💡']
-
+export const EMOJIS = [
+  '🙂',
+  '😀',
+  '😉',
+  '😲',
+  '🤪',
+  '😎',
+  '🤬',
+  '😭',
+  '🤮',
+  '😍',
+  '🥶',
+  '👋',
+  '🎱',
+  '💡'
+];
 
 // This is for demo purposes, in real world, make sure you use env vars :)
 export const GQL_HTTP_URI = 'http://localhost:4000/gql';

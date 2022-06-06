@@ -1,7 +1,6 @@
-import styled from "styled-components";
-import { EMOJIS } from "../config";
-import { Flex } from "../styles/Flex";
-
+import styled from 'styled-components';
+import { EMOJIS } from '../config';
+import { Flex } from '../styles/Flex';
 
 const Container = styled(Flex)`
   align-items: center;
@@ -16,15 +15,14 @@ const EmojiBtn = styled.button`
   cursor: pointer;
 `;
 
-type Props = {
-}
+//type Props = {};
 
 export const EmojiShortcuts = () => {
   return (
     <Container>
       {EMOJIS.map((emoji) => {
-        return <EmojiBtn onClick={(e) => console.log('EMoji clicked',e)}>{emoji}</EmojiBtn>
+        return <EmojiBtn onClick={(e) => console.log('EMoji clicked', e)}>{emoji}</EmojiBtn>;
       })}
     </Container>
-  )
-}
+  );
+};

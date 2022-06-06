@@ -3,8 +3,7 @@ import { gql, useQuery, useSubscription } from '@apollo/client';
 import { ChatRoom } from './components/ChatRoom';
 import { Header } from './components/Header';
 import { Background } from './styles/Background';
-import { useEffect, useState } from 'react';
-
+import { useState } from 'react';
 
 const GET_MESSAGES = gql`
   query {
@@ -18,7 +17,7 @@ const GET_MESSAGES = gql`
 
 const SUBSCRIBE = gql`
   subscription NewUpdate($username: ID!) {
-    onNewMessage(username: $username){
+    onNewMessage(username: $username) {
       id
       from
       text
@@ -30,36 +29,39 @@ type Message = {
   id: string;
   from: string;
   text: string;
-}
+};
 
 const getUsername = () => {
   let result = null;
-  while(!result){
+  while (!result) {
     result = prompt('Insert you username here:');
-    if(!result) alert('username is mandatory!');
+    if (!result) alert('username is mandatory!');
   }
-  return result
-}
+  return result;
+};
 
 function App() {
-  const [username] = useState<string | undefined>(getUsername())
+  const [username] = useState<string | undefined>(getUsername());
 
-  const { loading, error, data } = useQuery<{ messages: Message[]}>(GET_MESSAGES);
+  const { loading, error, data } = useQuery<{ messages: Message[] }>(GET_MESSAGES);
 
-  const {data: sdata, error: serror, loading: sloading} = useSubscription(SUBSCRIBE, {
+  const {
+    data: sdata,
+    error: serror,
+    loading: sloading
+  } = useSubscription(SUBSCRIBE, {
     onSubscriptionData: (d) => {
       console.log('subs: ', d);
-      
     },
-    variables: { username: username},
+    variables: { username: username },
     skip: !username
   });
 
-  console.log({sdata, serror, sloading});
+  console.log({ sdata, serror, sloading });
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
-  
+
   return (
     <Background>
       <Header />
