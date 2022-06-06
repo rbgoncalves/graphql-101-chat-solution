@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { Message } from '../App';
 
@@ -7,6 +8,7 @@ const Container = styled.div`
   border-radius: 10px;
   flex: 5;
   padding: 20px;
+  overflow-y: auto;
 `;
 
 const Sender = styled.span`
@@ -30,10 +32,20 @@ type Props = {
 };
 
 export const MessageList = ({ msgs }: Props) => {
+  const chatRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (chatRef.current) {
+      chatRef.current.scrollTo({
+        top: chatRef.current.scrollHeight
+      });
+    }
+  }, [chatRef]);
+
   return (
-    <Container>
-      {msgs?.map((msg) => (
-        <MessageItem key={msg.id} msg={msg} />
+    <Container ref={chatRef}>
+      {msgs?.map((msg, index) => (
+        <MessageItem key={msg.id + index} msg={msg} />
       ))}
     </Container>
   );

@@ -6,12 +6,12 @@ const Container = styled(Flex)`
   align-items: center;
   justify-content: space-between;
   margin-top: 15px;
-  margin-bottom: 5px;
+  margin-bottom: 8px;
 `;
 
 const EmojiBtn = styled.button`
   font-size: 30px;
-  line-height: 10px;
+  line-height: 25px;
   background: none;
   border: none;
   cursor: pointer;

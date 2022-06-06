@@ -7,7 +7,7 @@ export const ChatRoom = styled(Flex)`
   flex-direction: column;
   max-width: 800px;
   min-width: 390px;
-  min-height: 500px;
+  height: 500px;
   padding: 10px;
   border-radius: 10px;
   box-shadow: 17px 10px 25px 0px #ff0000;
